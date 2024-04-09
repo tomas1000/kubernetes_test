@@ -1,0 +1,39 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata: 
+  name: example-deployment
+  labels: 
+    app: example-app 
+spec:
+  selector: 
+    matchLabels:
+      app: example-app
+  replicas: 2
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: example-app
+        version: v01
+    spec: 
+      containers: 
+      - name: example-container
+        image: python
+        ports:         
+        - containerPort: 8000
+        imagePullPolicy: Always
+        resources: 
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits: 
+            memory: "256Mi"
+            cpu: "500m" 
+
+    
+
+    
